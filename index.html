@@ -3,439 +3,821 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teszttípusok_DTT</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Teszttípusok – DTT Projekt</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Syne+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --green-dark: #0F6E56;
-    --green-mid: #1D9E75;
-    --green-light: #5DCAA5;
-    --green-pale: #E1F5EE;
-    --green-xpale: #f0faf6;
-    --ink: #1a1a1a;
-    --surface: #ffffff;
-  }
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #18181f;
+  --border: rgba(255,255,255,0.08);
+  --accent: #6EE7C7;
+  --accent2: #A78BFA;
+  --accent3: #F472B6;
+  --accent4: #FBB84B;
+  --accent5: #60A5FA;
+  --accent6: #F87171;
+  --accent7: #34D399;
+  --text: #F0EEF6;
+  --muted: rgba(240,238,246,0.45);
+  --mono: 'Syne Mono', monospace;
+}
 
-  html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--ink);
-    background: var(--green-dark);
-  }
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
 
-  .slide {
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    flex-direction: column;
-    overflow: hidden;
-  }
+/* ── COVER ── */
+.slide { display: none; width: 100vw; height: 100vh; }
+.slide.active { display: flex; }
 
-  .slide.active { display: flex; }
+#slide-0 {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 3rem;
+}
 
-  /* ── COVER ── */
-  .slide-cover {
-    background: var(--green-dark);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: clamp(2rem, 5vw, 4rem);
-  }
+.bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(110,231,199,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(110,231,199,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
 
-  .cover-eyebrow {
-    font-size: clamp(10px, 1.2vw, 13px);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--green-light);
-    margin-bottom: clamp(0.8rem, 2vh, 1.4rem);
-    font-weight: 500;
-  }
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.orb1 { width: 500px; height: 500px; background: rgba(110,231,199,0.08); top: -150px; right: -100px; }
+.orb2 { width: 400px; height: 400px; background: rgba(167,139,250,0.07); bottom: -100px; left: -80px; }
 
-  .cover-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2.4rem, 6vw, 5rem);
-    line-height: 1.1;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
+.cover-badge {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(110,231,199,0.3);
+  padding: 5px 16px;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
 
-  .cover-title span { color: var(--green-light); font-style: italic; }
+.cover-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1.0;
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
 
-  .cover-sub {
-    font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-    color: rgba(255,255,255,0.55);
-    margin-bottom: clamp(2rem, 4vh, 3.5rem);
-    font-weight: 300;
-  }
+.cover-title .line2 {
+  display: block;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  .cover-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
-    color: var(--green-light);
-    text-decoration: none;
-    border: 1px solid rgba(93,202,165,0.4);
-    padding: 8px 20px;
-    border-radius: 100px;
-    margin-bottom: clamp(2rem, 4vh, 3.5rem);
-    transition: background 0.2s;
-  }
+.cover-sub {
+  color: var(--muted);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  margin-bottom: 3rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
 
-  .cover-link:hover { background: rgba(93,202,165,0.12); }
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 940px;
+}
 
-  .nav-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: clamp(8px, 1.2vw, 14px);
-    width: 100%;
-    max-width: 780px;
-  }
+.test-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 10px 16px;
+  cursor: pointer;
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
 
-  .nav-btn {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 12px;
-    padding: clamp(10px, 2vh, 18px) 8px;
-    cursor: pointer;
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.65rem, 1vw, 0.82rem);
-    line-height: 1.4;
-    text-align: center;
-    transition: background 0.2s, transform 0.15s;
-  }
+.test-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
 
-  .nav-btn:hover {
-    background: rgba(255,255,255,0.18);
-    transform: translateY(-3px);
-  }
+.test-btn:hover { transform: translateY(-4px); }
+.test-btn:hover::before { opacity: 1; }
 
-  .nav-btn .nb-num {
-    display: block;
-    font-size: clamp(1.1rem, 2vw, 1.6rem);
-    font-family: 'DM Serif Display', serif;
-    color: var(--green-light);
-    margin-bottom: 5px;
-  }
+.tb1 { --c: #6EE7C7; } .tb1:hover { border-color: #6EE7C7; background: rgba(110,231,199,0.06); }
+.tb2 { --c: #A78BFA; } .tb2:hover { border-color: #A78BFA; background: rgba(167,139,250,0.06); }
+.tb3 { --c: #F472B6; } .tb3:hover { border-color: #F472B6; background: rgba(244,114,182,0.06); }
+.tb4 { --c: #FBB84B; } .tb4:hover { border-color: #FBB84B; background: rgba(251,184,75,0.06); }
+.tb5 { --c: #60A5FA; } .tb5:hover { border-color: #60A5FA; background: rgba(96,165,250,0.06); }
+.tb6 { --c: #F87171; } .tb6:hover { border-color: #F87171; background: rgba(248,113,113,0.06); }
+.tb7 { --c: #34D399; } .tb7:hover { border-color: #34D399; background: rgba(52,211,153,0.06); }
 
-  /* ── CONTENT SLIDES ── */
-  .slide-content { background: var(--surface); }
+.tb-icon {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  display: block;
+}
 
-  .sc-header {
-    background: var(--green-dark);
-    padding: clamp(1.2rem, 3vh, 2.2rem) clamp(1.5rem, 4vw, 3.5rem);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-shrink: 0;
-  }
+.tb-num {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--c, var(--accent));
+  display: block;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
 
-  .sc-header-left { flex: 1; }
+/* ── CONTENT SLIDES ── */
+.slide-content {
+  flex-direction: column;
+  background: var(--bg);
+}
 
-  .sc-num {
-    font-size: clamp(0.65rem, 1vw, 0.78rem);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--green-light);
-    font-weight: 500;
-    margin-bottom: 0.3rem;
-  }
+.sc-top {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
 
-  .sc-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-    color: #fff;
-    line-height: 1.15;
-  }
+.sc-accent-bar {
+  width: 5px;
+  flex-shrink: 0;
+}
 
-  .back-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
-    padding: 8px 18px;
-    color: rgba(255,255,255,0.85);
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.72rem, 1vw, 0.85rem);
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: background 0.2s;
-    margin-top: 6px;
-  }
+.sc-header-inner {
+  flex: 1;
+  padding: clamp(1.2rem, 3vh, 2rem) clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
 
-  .back-btn:hover { background: rgba(255,255,255,0.22); }
+.sc-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
 
-  .sc-body {
-    padding: clamp(1.2rem, 3vh, 2.5rem) clamp(1.5rem, 4vw, 3.5rem);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(0.8rem, 1.8vh, 1.5rem);
-    flex: 1;
-    overflow: hidden;
-  }
+.sc-badge {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-weight: 400;
+}
 
-  .info-card {
-    background: var(--green-xpale);
-    border: 1px solid rgba(29,158,117,0.18);
-    border-radius: 16px;
-    padding: clamp(1rem, 2.5vh, 1.8rem) clamp(1rem, 2vw, 1.8rem);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    overflow: hidden;
-  }
+.sc-num-tag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+}
 
-  .ic-label {
-    font-size: clamp(0.62rem, 0.9vw, 0.75rem);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--green-mid);
-    font-weight: 600;
-    flex-shrink: 0;
-  }
+.sc-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
 
-  .ic-text {
-    font-size: clamp(0.82rem, 1.2vw, 1rem);
-    color: var(--ink);
-    line-height: 1.65;
-    font-weight: 300;
-    flex: 1;
-  }
+.back-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 18px;
+  color: var(--muted);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
+  margin-top: 4px;
+  letter-spacing: 0.01em;
+}
+.back-btn:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }
 
-  .ic-text strong { color: var(--green-dark); font-weight: 600; }
+.sc-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(0.7rem, 1.5vh, 1.2rem);
+  padding: clamp(1rem, 2.5vh, 1.8rem) clamp(1.5rem, 4vw, 3rem);
+  overflow: hidden;
+}
 
-  .tag-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: auto;
-    flex-shrink: 0;
-  }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: clamp(1rem, 2.5vh, 1.5rem) clamp(1rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+  position: relative;
+}
 
-  .tag {
-    font-size: clamp(0.62rem, 0.85vw, 0.72rem);
-    padding: 4px 12px;
-    border-radius: 100px;
-    background: rgba(29,158,117,0.12);
-    color: var(--green-dark);
-    font-weight: 500;
-  }
+.card-label {
+  font-family: var(--mono);
+  font-size: clamp(0.58rem, 0.8vw, 0.66rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 400;
+  flex-shrink: 0;
+}
 
-  .tip-card {
-    background: var(--green-dark);
-    border-radius: 16px;
-    padding: clamp(1rem, 2.5vh, 1.8rem) clamp(1rem, 2vw, 1.8rem);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    grid-column: 1 / -1;
-    overflow: hidden;
-  }
+.card-text {
+  font-size: clamp(0.8rem, 1.15vw, 0.95rem);
+  color: rgba(240,238,246,0.8);
+  line-height: 1.7;
+  font-weight: 300;
+  flex: 1;
+}
 
-  .tip-card .ic-label { color: var(--green-light); }
-  .tip-card .ic-text { color: rgba(255,255,255,0.85); }
-  .tip-card .tag { background: rgba(255,255,255,0.1); color: var(--green-light); }
+.card-text strong { font-weight: 500; }
 
-  .progress-bar {
-    height: 4px;
-    background: rgba(29,158,117,0.15);
-    flex-shrink: 0;
-  }
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: auto;
+  flex-shrink: 0;
+  padding-top: 0.4rem;
+}
 
-  .progress-fill {
-    height: 100%;
-    background: var(--green-mid);
-    transition: width 0.5s ease;
-  }
+.tag {
+  font-family: var(--mono);
+  font-size: clamp(0.55rem, 0.75vw, 0.63rem);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid;
+  letter-spacing: 0.04em;
+}
 
-  @media (max-width: 700px) {
-    .nav-grid { grid-template-columns: repeat(3, 1fr); }
-    .sc-body { grid-template-columns: 1fr; overflow-y: auto; }
-    .tip-card { grid-column: 1; }
-  }
+/* Wide card spans full row */
+.card-wide {
+  grid-column: 1 / -1;
+}
+
+/* Tool list */
+.tool-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.4rem;
+}
+
+.tool-chip {
+  font-family: var(--mono);
+  font-size: clamp(0.55rem, 0.75vw, 0.62rem);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  letter-spacing: 0.04em;
+}
+
+.card-corner-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  font-size: 1.8rem;
+  opacity: 0.12;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Progress strip */
+.progress-strip {
+  display: flex;
+  gap: 4px;
+  padding: 0 clamp(1.5rem, 4vw, 3rem) clamp(0.8rem, 1.5vh, 1.2rem);
+  flex-shrink: 0;
+}
+
+.ps-seg {
+  height: 3px;
+  border-radius: 2px;
+  flex: 1;
+  background: var(--border);
+  transition: background 0.4s;
+}
+.ps-seg.done { }
+
+/* NAV ARROWS */
+.nav-arrows {
+  position: fixed;
+  bottom: 1.5rem;
+  right: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  gap: 8px;
+  z-index: 99;
+}
+
+.nav-arr {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 1rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.nav-arr:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+
+@media (max-width: 760px) {
+  .test-grid { grid-template-columns: repeat(4, 1fr); }
+  .sc-body { grid-template-columns: 1fr 1fr; grid-template-rows: auto; overflow-y: auto; }
+  .card-wide { grid-column: 1 / -1; }
+}
+@media (max-width: 500px) {
+  .test-grid { grid-template-columns: repeat(3, 1fr); }
+  .sc-body { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-  <div class="slide slide-cover active" id="slide-0">
-    <p class="cover-eyebrow">Projektdokumentáció</p>
-    <h1 class="cover-title">DTT – Digitális Tankönyvtár<br><span>Teszttípusok</span></h1>
-    <p class="cover-sub">Mikor és miért tesztelünk?</p>
-    <a class="cover-link" href="https://erdptr.github.io/Proj11/" target="_blank">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      Kipublikált oldal megtekintése
-    </a>
-    <div class="nav-grid">
-      <button class="nav-btn" onclick="goTo(1)"><span class="nb-num">01</span>Funkcionális tesztelés</button>
-      <button class="nav-btn" onclick="goTo(2)"><span class="nb-num">02</span>UX/UI tesztelés</button>
-      <button class="nav-btn" onclick="goTo(3)"><span class="nb-num">03</span>Reszponzív tesztelés</button>
-      <button class="nav-btn" onclick="goTo(4)"><span class="nb-num">04</span>Regressziós tesztelés</button>
-      <button class="nav-btn" onclick="goTo(5)"><span class="nb-num">05</span>Határérték tesztelés</button>
-    </div>
-  </div>
+<!-- ══ COVER ══ -->
+<div class="slide active" id="slide-0">
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
 
-  <div class="slide slide-content" id="slide-1">
-    <div class="sc-header">
-      <div class="sc-header-left">
-        <p class="sc-num">01 / 05</p>
-        <h2 class="sc-title">Funkcionális tesztelés</h2>
+  <div class="cover-badge">DTT · Projektdokumentáció · 2025</div>
+  <h1 class="cover-title">
+    Tesztelési<br>
+    <span class="line2">stratégia</span>
+  </h1>
+  <p class="cover-sub">7 teszttípus · mikor · miért · hogyan</p>
+
+  <div class="test-grid">
+    <button class="test-btn tb1" onclick="goTo(1)">
+      <span class="tb-icon">🧪</span>
+      <span class="tb-num">01</span>
+      Unit
+    </button>
+    <button class="test-btn tb2" onclick="goTo(2)">
+      <span class="tb-icon">⚙️</span>
+      <span class="tb-num">02</span>
+      Funkcionális
+    </button>
+    <button class="test-btn tb3" onclick="goTo(3)">
+      <span class="tb-icon">🖥️</span>
+      <span class="tb-num">03</span>
+      UI / UX
+    </button>
+    <button class="test-btn tb4" onclick="goTo(4)">
+      <span class="tb-icon">🔄</span>
+      <span class="tb-num">04</span>
+      Regressziós
+    </button>
+    <button class="test-btn tb5" onclick="goTo(5)">
+      <span class="tb-icon">📱</span>
+      <span class="tb-num">05</span>
+      Reszpon&shy;zivitás
+    </button>
+    <button class="test-btn tb6" onclick="goTo(6)">
+      <span class="tb-icon">🔗</span>
+      <span class="tb-num">06</span>
+      Integrációs
+    </button>
+    <button class="test-btn tb7" onclick="goTo(7)">
+      <span class="tb-icon">🔐</span>
+      <span class="tb-num">07</span>
+      Biztonsági
+    </button>
+  </div>
+</div>
+
+<!-- ══ 01 UNIT ══ -->
+<div class="slide slide-content" id="slide-1">
+  <div class="sc-top">
+    <div class="sc-accent-bar" style="background:#6EE7C7"></div>
+    <div class="sc-header-inner">
+      <div>
+        <div class="sc-meta">
+          <span class="sc-badge" style="background:rgba(110,231,199,0.12);color:#6EE7C7">🧪 Unit</span>
+          <span class="sc-num-tag">01 / 07</span>
+        </div>
+        <h2 class="sc-title" style="color:#6EE7C7">Unit tesztelés</h2>
       </div>
       <button class="back-btn" onclick="goTo(0)">← Fődia</button>
     </div>
-    <div class="sc-body">
-      <div class="info-card">
-        <p class="ic-label">Mikor használjuk?</p>
-        <p class="ic-text">A fejlesztés alatt <strong>folyamatosan</strong>, és a fejlesztési szakasz <strong>végén</strong> — minden új funkció bevezetésekor érdemes lefuttatni.</p>
-        <div class="tag-row">
-          <span class="tag">Fejlesztés közben</span>
-          <span class="tag">Sprint végén</span>
-          <span class="tag">Release előtt</span>
-        </div>
-      </div>
-      <div class="info-card">
-        <p class="ic-label">Mi a célja?</p>
-        <p class="ic-text">Ellenőrizni, hogy a gombok és funkciók <strong>pontosan azt csinálják-e</strong>, amit elvárunk tőlük. Pl. a számológép helyesen ad-e össze két számot.</p>
-      </div>
-      <div class="tip-card">
-        <p class="ic-label">Hogyan csináljuk?</p>
-        <p class="ic-text">Minden egyes felhasználói műveletet szimulálunk: kattintás, adatbevitel, űrlapküldés. Automatizált tesztekkel (pl. Cypress, Selenium) vagy manuálisan is elvégezhető. Minden funkcióhoz <strong>tesztesetet</strong> írunk: bemenet → várt kimenet → tényleges kimenet.</p>
+  </div>
+  <div class="sc-body">
+    <div class="card">
+      <span class="card-corner-icon">🧪</span>
+      <p class="card-label" style="color:#6EE7C7">Mi ez?</p>
+      <p class="card-text">Az alkalmazás <strong>legkisebb önálló egységeit</strong> teszteljük izoláltan — egy függvényt, osztályt vagy modult —, anélkül, hogy a többi résztől függnénk.</p>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#6EE7C7">Mikor?</p>
+      <p class="card-text">A fejlesztés <strong>legelejétől</strong> kezdve, minden egyes függvény megírásakor. Ideálisan <strong>TDD</strong> (test-driven) megközelítéssel: előbb teszt, aztán kód.</p>
+      <div class="tag-row">
+        <span class="tag" style="color:#6EE7C7;border-color:rgba(110,231,199,0.25)">Fejlesztés közben</span>
+        <span class="tag" style="color:#6EE7C7;border-color:rgba(110,231,199,0.25)">TDD</span>
+        <span class="tag" style="color:#6EE7C7;border-color:rgba(110,231,199,0.25)">Minden commitnál</span>
       </div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+    <div class="card">
+      <p class="card-label" style="color:#6EE7C7">Miért?</p>
+      <p class="card-text">A hibák <strong>legolcsóbban</strong> itt foghatók meg. Egy elrontott számítás azonnal látszik, nem kell a teljes rendszert futtatni. Dokumentálja az elvárt viselkedést.</p>
+    </div>
+    <div class="card card-wide">
+      <p class="card-label" style="color:#6EE7C7">Hogyan? – Példák a DTT projektből</p>
+      <p class="card-text">Teszteljük pl. a <strong>kalkulátor függvényeket</strong> (összeadás, osztás nullával), a <strong>validációs logikát</strong> (e-mail formátum, jelszóerősség), az <strong>árazási számításokat</strong>. Minden egységhez: bemenet → várt kimenet → tény kimenet.</p>
+      <div class="tool-list">
+        <span class="tool-chip">Jest</span>
+        <span class="tool-chip">Vitest</span>
+        <span class="tool-chip">Mocha</span>
+        <span class="tool-chip">Jasmine</span>
+        <span class="tool-chip">PHPUnit</span>
+      </div>
+    </div>
   </div>
+  <div class="progress-strip" id="ps-1"></div>
+</div>
 
-  <div class="slide slide-content" id="slide-2">
-    <div class="sc-header">
-      <div class="sc-header-left">
-        <p class="sc-num">02 / 05</p>
-        <h2 class="sc-title">UX/UI tesztelés</h2>
+<!-- ══ 02 FUNKCIONÁLIS ══ -->
+<div class="slide slide-content" id="slide-2">
+  <div class="sc-top">
+    <div class="sc-accent-bar" style="background:#A78BFA"></div>
+    <div class="sc-header-inner">
+      <div>
+        <div class="sc-meta">
+          <span class="sc-badge" style="background:rgba(167,139,250,0.12);color:#A78BFA">⚙️ Funkcionális</span>
+          <span class="sc-num-tag">02 / 07</span>
+        </div>
+        <h2 class="sc-title" style="color:#A78BFA">Funkcionális tesztelés</h2>
       </div>
       <button class="back-btn" onclick="goTo(0)">← Fődia</button>
     </div>
-    <div class="sc-body">
-      <div class="info-card">
-        <p class="ic-label">Mikor használjuk?</p>
-        <p class="ic-text">Amikor a funkciók már <strong>működnek</strong>, de a dizájn és a navigáció még <strong>finomítható</strong> — a fejlesztés közepe-vége felé.</p>
-        <div class="tag-row">
-          <span class="tag">Prototípus fázis</span>
-          <span class="tag">Beta verzió</span>
-          <span class="tag">Redesign</span>
-        </div>
-      </div>
-      <div class="info-card">
-        <p class="ic-label">Mi a célja?</p>
-        <p class="ic-text">Kideríteni, hogy egy <strong>külsős felhasználó</strong> érti-e a navigációt, és nem téved-e el az oldalon. A felhasználói élmény a középpontban.</p>
-      </div>
-      <div class="tip-card">
-        <p class="ic-label">Hogyan csináljuk?</p>
-        <p class="ic-text">Valódi felhasználókkal végzett tesztekkel (pl. moderált usability session), hőtérképekkel (pl. Hotjar) és szemkövető szoftverekkel. Kérdés: <strong>„El tudja-e végezni a feladatot 30 másodpercen belül?"</strong> — ha nem, a felület átgondolást igényel.</p>
+  </div>
+  <div class="sc-body">
+    <div class="card">
+      <span class="card-corner-icon">⚙️</span>
+      <p class="card-label" style="color:#A78BFA">Mi ez?</p>
+      <p class="card-text">Ellenőrzi, hogy a rendszer <strong>funkcionálisan</strong> teljesíti-e a specifikációt. Nem az implementációt nézzük, hanem azt, hogy a <strong>felhasználói igény</strong> kielégül-e.</p>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#A78BFA">Mikor?</p>
+      <p class="card-text">Minden <strong>sprint végén</strong>, új feature elkészültekor, és <strong>release előtt</strong> kötelezően. Folyamatosan, de a sprint review előtt különösen fontos.</p>
+      <div class="tag-row">
+        <span class="tag" style="color:#A78BFA;border-color:rgba(167,139,250,0.25)">Sprint végén</span>
+        <span class="tag" style="color:#A78BFA;border-color:rgba(167,139,250,0.25)">Release előtt</span>
+        <span class="tag" style="color:#A78BFA;border-color:rgba(167,139,250,0.25)">Új feature</span>
       </div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+    <div class="card">
+      <p class="card-label" style="color:#A78BFA">Miért?</p>
+      <p class="card-text">Megmutatja, hogy a gomb valóban azt csinálja-e, amit ígért. A <strong>specifikáció és a valóság</strong> közötti rés itt derül ki — nem az éles indítás után.</p>
+    </div>
+    <div class="card card-wide">
+      <p class="card-label" style="color:#A78BFA">Hogyan? – DTT kontextusban</p>
+      <p class="card-text">Minden egyes felhasználói műveletet szimulálunk: <strong>bejelentkezés, tankönyv keresés, fejezet megnyitás, kvíz beküldés</strong>. Teszteseteket írunk: bemenet → várt kimenet → tényleges kimenet. Manuálisan és automatizáltan is elvégezhető.</p>
+      <div class="tool-list">
+        <span class="tool-chip">Cypress</span>
+        <span class="tool-chip">Selenium</span>
+        <span class="tool-chip">Playwright</span>
+        <span class="tool-chip">Postman (API)</span>
+      </div>
+    </div>
   </div>
+  <div class="progress-strip" id="ps-2"></div>
+</div>
 
-  <div class="slide slide-content" id="slide-3">
-    <div class="sc-header">
-      <div class="sc-header-left">
-        <p class="sc-num">03 / 05</p>
-        <h2 class="sc-title">Reszponzív tesztelés</h2>
+<!-- ══ 03 UI/UX ══ -->
+<div class="slide slide-content" id="slide-3">
+  <div class="sc-top">
+    <div class="sc-accent-bar" style="background:#F472B6"></div>
+    <div class="sc-header-inner">
+      <div>
+        <div class="sc-meta">
+          <span class="sc-badge" style="background:rgba(244,114,182,0.12);color:#F472B6">🖥️ UI / UX</span>
+          <span class="sc-num-tag">03 / 07</span>
+        </div>
+        <h2 class="sc-title" style="color:#F472B6">UI / UX tesztelés</h2>
       </div>
       <button class="back-btn" onclick="goTo(0)">← Fődia</button>
     </div>
-    <div class="sc-body">
-      <div class="info-card">
-        <p class="ic-label">Mikor használjuk?</p>
-        <p class="ic-text">A vizuális elemek elhelyezése <strong>után</strong> — mielőtt az oldal élesbe menne, minden képernyőméreten le kell ellenőrizni.</p>
-        <div class="tag-row">
-          <span class="tag">Mobil</span>
-          <span class="tag">Tablet</span>
-          <span class="tag">Asztali</span>
-          <span class="tag">Nagy monitor</span>
-        </div>
-      </div>
-      <div class="info-card">
-        <p class="ic-label">Mi a célja?</p>
-        <p class="ic-text">Biztosítani, hogy az oldal <strong>ne essen szét</strong> telefonon vagy tableten sem — a tartalom mindig olvasható és kezelhető maradjon.</p>
-      </div>
-      <div class="tip-card">
-        <p class="ic-label">Hogyan csináljuk?</p>
-        <p class="ic-text">Chrome DevTools eszközökkel szimulálunk különböző eszközöket, valós telefonokon teszteljük, és BrowserStack-kel ellenőrizzük a cross-browser kompatibilitást. Fő szempontok: <strong>szöveg mérete, gombok érinthetősége, képek méretezése</strong> és a layout töréspontjai (breakpoints).</p>
+  </div>
+  <div class="sc-body">
+    <div class="card">
+      <span class="card-corner-icon">🖥️</span>
+      <p class="card-label" style="color:#F472B6">Mi ez?</p>
+      <p class="card-text">Vizsgálja, hogy az <strong>interfész intuitív</strong>-e, a navigáció logikus-e, és a felhasználó megtalálja-e, amit keres — valós emberek bevonásával.</p>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#F472B6">Mikor?</p>
+      <p class="card-text">Amikor a funkciók már <strong>működnek</strong>, de a dizájn még finomítható — prototípus fázisban, beta verzióban, és minden redesign után.</p>
+      <div class="tag-row">
+        <span class="tag" style="color:#F472B6;border-color:rgba(244,114,182,0.25)">Prototípus</span>
+        <span class="tag" style="color:#F472B6;border-color:rgba(244,114,182,0.25)">Beta verzió</span>
+        <span class="tag" style="color:#F472B6;border-color:rgba(244,114,182,0.25)">Redesign</span>
       </div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+    <div class="card">
+      <p class="card-label" style="color:#F472B6">Miért?</p>
+      <p class="card-text">Kideríteni, hogy egy <strong>külső felhasználó</strong> — például egy diák — érti-e a navigációt, és 30 másodpercen belül el tud-e végezni egy alapfeladatot.</p>
+    </div>
+    <div class="card card-wide">
+      <p class="card-label" style="color:#F472B6">Hogyan? – DTT kontextusban</p>
+      <p class="card-text">Valódi diákokkal végzett <strong>usability session</strong>: feladatok kiadása megfigyelés mellett. Hőtérképek a kattintási mintákhoz, eye-tracking a figyelem eloszlásához. Kérdés: <strong>„Meg tudja nyitni a kvízt 30 mp alatt?"</strong> — ha nem, az interfész átgondolást igényel.</p>
+      <div class="tool-list">
+        <span class="tool-chip">Hotjar</span>
+        <span class="tool-chip">Maze</span>
+        <span class="tool-chip">Figma Prototype</span>
+        <span class="tool-chip">UserTesting</span>
+      </div>
+    </div>
   </div>
+  <div class="progress-strip" id="ps-3"></div>
+</div>
 
-  <div class="slide slide-content" id="slide-4">
-    <div class="sc-header">
-      <div class="sc-header-left">
-        <p class="sc-num">04 / 05</p>
-        <h2 class="sc-title">Regressziós tesztelés</h2>
+<!-- ══ 04 REGRESSZIÓS ══ -->
+<div class="slide slide-content" id="slide-4">
+  <div class="sc-top">
+    <div class="sc-accent-bar" style="background:#FBB84B"></div>
+    <div class="sc-header-inner">
+      <div>
+        <div class="sc-meta">
+          <span class="sc-badge" style="background:rgba(251,184,75,0.12);color:#FBB84B">🔄 Regressziós</span>
+          <span class="sc-num-tag">04 / 07</span>
+        </div>
+        <h2 class="sc-title" style="color:#FBB84B">Regressziós tesztelés</h2>
       </div>
       <button class="back-btn" onclick="goTo(0)">← Fődia</button>
     </div>
-    <div class="sc-body">
-      <div class="info-card">
-        <p class="ic-label">Mikor használjuk?</p>
-        <p class="ic-text">Minden egyes <strong>javítás</strong> vagy új funkció hozzáadása után — az összes korábbi funkciót újra le kell ellenőrizni.</p>
-        <div class="tag-row">
-          <span class="tag">Bugfix után</span>
-          <span class="tag">Új feature</span>
-          <span class="tag">Frissítés</span>
-        </div>
-      </div>
-      <div class="info-card">
-        <p class="ic-label">Mi a célja?</p>
-        <p class="ic-text">Ellenőrizni, hogy az új kód <strong>nem rontott-e el</strong> valami olyat, ami eddig jól működött — megelőzni a rejtett hibákat.</p>
-      </div>
-      <div class="tip-card">
-        <p class="ic-label">Hogyan csináljuk?</p>
-        <p class="ic-text">Automatizált tesztsorozatokkal (test suite), amelyek minden commit után lefutnak (CI/CD pipeline). Eszközök: Jest, Playwright, GitHub Actions. A <strong>teljes funkcionalitás</strong> le van fedve tesztekkel, így egy gombnyomással ellenőrizhető, hogy semmi sem tört el.</p>
+  </div>
+  <div class="sc-body">
+    <div class="card">
+      <span class="card-corner-icon">🔄</span>
+      <p class="card-label" style="color:#FBB84B">Mi ez?</p>
+      <p class="card-text">Minden módosítás után <strong>az összes korábbi funkciót újra</strong> lefuttatjuk, hogy megbizonyosodjunk: az új kód nem rontott el semmit, ami korábban működött.</p>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#FBB84B">Mikor?</p>
+      <p class="card-text">Minden egyes <strong>bugfix, új feature vagy frissítés</strong> után — automatikusan, minden commit érkezésekor a CI/CD pipeline részeként.</p>
+      <div class="tag-row">
+        <span class="tag" style="color:#FBB84B;border-color:rgba(251,184,75,0.25)">Bugfix után</span>
+        <span class="tag" style="color:#FBB84B;border-color:rgba(251,184,75,0.25)">Új feature</span>
+        <span class="tag" style="color:#FBB84B;border-color:rgba(251,184,75,0.25)">Minden merge</span>
       </div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+    <div class="card">
+      <p class="card-label" style="color:#FBB84B">Miért?</p>
+      <p class="card-text">A <strong>rejtett törések</strong> elkapásáért: egy látszólag ártatlan módosítás megronthat egy tőle független funkciót. Megelőzi, hogy éles rendszerben derüljön ki.</p>
+    </div>
+    <div class="card card-wide">
+      <p class="card-label" style="color:#FBB84B">Hogyan? – DTT kontextusban</p>
+      <p class="card-text">Automatizált <strong>test suite</strong>, amely minden commit után lefut. Ha a bejelentkezés módosul, automatikusan újra fut a tankönyv-lista, a keresés és a kvíz is. Egy gombnyomással ellenőrizhető, hogy <strong>semmi sem tört el</strong>.</p>
+      <div class="tool-list">
+        <span class="tool-chip">Jest</span>
+        <span class="tool-chip">Playwright</span>
+        <span class="tool-chip">GitHub Actions</span>
+        <span class="tool-chip">GitLab CI</span>
+      </div>
+    </div>
   </div>
+  <div class="progress-strip" id="ps-4"></div>
+</div>
 
-  <div class="slide slide-content" id="slide-5">
-    <div class="sc-header">
-      <div class="sc-header-left">
-        <p class="sc-num">05 / 05</p>
-        <h2 class="sc-title">Határérték tesztelés</h2>
+<!-- ══ 05 RESZPONZIVITÁS ══ -->
+<div class="slide slide-content" id="slide-5">
+  <div class="sc-top">
+    <div class="sc-accent-bar" style="background:#60A5FA"></div>
+    <div class="sc-header-inner">
+      <div>
+        <div class="sc-meta">
+          <span class="sc-badge" style="background:rgba(96,165,250,0.12);color:#60A5FA">📱 Reszponzivitás</span>
+          <span class="sc-num-tag">05 / 07</span>
+        </div>
+        <h2 class="sc-title" style="color:#60A5FA">Reszponzív tesztelés</h2>
       </div>
       <button class="back-btn" onclick="goTo(0)">← Fődia</button>
     </div>
-    <div class="sc-body">
-      <div class="info-card">
-        <p class="ic-label">Mikor használjuk?</p>
-        <p class="ic-text">Adatbeviteli mezőknél — például <strong>regisztrációs formáknál</strong> vagy <strong>számológépnél</strong> — ahol a felhasználók szélsőséges értékeket is megadhatnak.</p>
-        <div class="tag-row">
-          <span class="tag">Formák</span>
-          <span class="tag">Inputok</span>
-          <span class="tag">Kalkulátorok</span>
-        </div>
-      </div>
-      <div class="info-card">
-        <p class="ic-label">Mi a célja?</p>
-        <p class="ic-text">Megnézni, mi történik, ha valaki <strong>túl hosszú nevet</strong> ad meg, <strong>nullával oszt</strong>, vagy negatív számot ír be — az oldal kezelje ezeket hibamentesen.</p>
-      </div>
-      <div class="tip-card">
-        <p class="ic-label">Hogyan csináljuk?</p>
-        <p class="ic-text">Teszteljük a minimális, maximális és éppen érvénytelen értékeket. Például névmezőnél: 1 karakter, 50 karakter, 51 karakter (határ felett), 0 karakter. Számításoknál: <strong>0, negatív szám, tört szám, extrém nagy szám</strong>. Mindig ellenőrizzük, hogy a hibaüzenet érthető-e a felhasználónak.</p>
+  </div>
+  <div class="sc-body">
+    <div class="card">
+      <span class="card-corner-icon">📱</span>
+      <p class="card-label" style="color:#60A5FA">Mi ez?</p>
+      <p class="card-text">Ellenőrzi, hogy az oldal <strong>minden képernyőméreten</strong> helyesen jelenik-e meg és használható-e — telefonon, tableten, laptopon és nagy monitoron egyaránt.</p>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#60A5FA">Mikor?</p>
+      <p class="card-text">A vizuális elemek elhelyezése <strong>után</strong>, az élesbe állítás előtt. Minden layout-módosítás után, és új eszközcsaládok megjelenésekor.</p>
+      <div class="tag-row">
+        <span class="tag" style="color:#60A5FA;border-color:rgba(96,165,250,0.25)">Mobil</span>
+        <span class="tag" style="color:#60A5FA;border-color:rgba(96,165,250,0.25)">Tablet</span>
+        <span class="tag" style="color:#60A5FA;border-color:rgba(96,165,250,0.25)">Desktop</span>
+        <span class="tag" style="color:#60A5FA;border-color:rgba(96,165,250,0.25)">4K monitor</span>
       </div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+    <div class="card">
+      <p class="card-label" style="color:#60A5FA">Miért?</p>
+      <p class="card-text">A DTT diákok <strong>többsége mobilon</strong> éri el a tananyagot. Ha az oldal telefonon összetörik, a tartalom elérhetetlenné válik a célközönség számára.</p>
+    </div>
+    <div class="card card-wide">
+      <p class="card-label" style="color:#60A5FA">Hogyan? – DTT kontextusban</p>
+      <p class="card-text">Chrome DevTools különböző eszköz-szimulációkkal, valós telefonon manuális ellenőrzés, BrowserStack cross-browser tesztelés. Fő szempontok: <strong>szövegméret, gombok érinthetősége, képek méretezése</strong> és a layout töréspontjai (breakpoints: 480 / 768 / 1024 / 1440 px).</p>
+      <div class="tool-list">
+        <span class="tool-chip">Chrome DevTools</span>
+        <span class="tool-chip">BrowserStack</span>
+        <span class="tool-chip">Responsively</span>
+        <span class="tool-chip">Safari iOS</span>
+      </div>
+    </div>
   </div>
+  <div class="progress-strip" id="ps-5"></div>
+</div>
+
+<!-- ══ 06 INTEGRÁCIÓS ══ -->
+<div class="slide slide-content" id="slide-6">
+  <div class="sc-top">
+    <div class="sc-accent-bar" style="background:#F87171"></div>
+    <div class="sc-header-inner">
+      <div>
+        <div class="sc-meta">
+          <span class="sc-badge" style="background:rgba(248,113,113,0.12);color:#F87171">🔗 Integrációs</span>
+          <span class="sc-num-tag">06 / 07</span>
+        </div>
+        <h2 class="sc-title" style="color:#F87171">Integrációs tesztelés</h2>
+      </div>
+      <button class="back-btn" onclick="goTo(0)">← Fődia</button>
+    </div>
+  </div>
+  <div class="sc-body">
+    <div class="card">
+      <span class="card-corner-icon">🔗</span>
+      <p class="card-label" style="color:#F87171">Mi ez?</p>
+      <p class="card-text">Ellenőrzi, hogy a rendszer <strong>különálló moduljai együtt</strong> is helyesen működnek-e — az egységek közötti adatáramlást és kommunikációt teszteli.</p>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#F87171">Mikor?</p>
+      <p class="card-text">Miután az egyes modulok <strong>unit-teszteken átmentek</strong>, és össze kell őket kötni: frontend ↔ backend, backend ↔ adatbázis, külső API csatlakozásakor.</p>
+      <div class="tag-row">
+        <span class="tag" style="color:#F87171;border-color:rgba(248,113,113,0.25)">Modulok összekapcsolásakor</span>
+        <span class="tag" style="color:#F87171;border-color:rgba(248,113,113,0.25)">API integráció</span>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#F87171">Miért?</p>
+      <p class="card-text">Az egységek önmagukban működhetnek, de <strong>együtt hibásak</strong> lehetnek. Pl. a frontend jó adatot küld, de az API formátuma nem egyezik — ez csak integrációs teszttel derül ki.</p>
+    </div>
+    <div class="card card-wide">
+      <p class="card-label" style="color:#F87171">Hogyan? – DTT kontextusban</p>
+      <p class="card-text">Teszteljük a <strong>bejelentkezés → tankönyv lista betöltés → fejezet megnyitás</strong> teljes folyamatát. Ellenőrizzük, hogy az adatbázisból jött tananyag helyesen jelenik-e meg a frontenden. API végpontokat valódi kérésekkel teszteljük, és figyeljük a hibakezelést.</p>
+      <div class="tool-list">
+        <span class="tool-chip">Postman</span>
+        <span class="tool-chip">Supertest</span>
+        <span class="tool-chip">Pact (contract)</span>
+        <span class="tool-chip">Cypress</span>
+      </div>
+    </div>
+  </div>
+  <div class="progress-strip" id="ps-6"></div>
+</div>
+
+<!-- ══ 07 BIZTONSÁGI ══ -->
+<div class="slide slide-content" id="slide-7">
+  <div class="sc-top">
+    <div class="sc-accent-bar" style="background:#34D399"></div>
+    <div class="sc-header-inner">
+      <div>
+        <div class="sc-meta">
+          <span class="sc-badge" style="background:rgba(52,211,153,0.12);color:#34D399">🔐 Biztonsági</span>
+          <span class="sc-num-tag">07 / 07</span>
+        </div>
+        <h2 class="sc-title" style="color:#34D399">Biztonsági tesztelés</h2>
+      </div>
+      <button class="back-btn" onclick="goTo(0)">← Fődia</button>
+    </div>
+  </div>
+  <div class="sc-body">
+    <div class="card">
+      <span class="card-corner-icon">🔐</span>
+      <p class="card-label" style="color:#34D399">Mi ez?</p>
+      <p class="card-text">Feltárja az alkalmazás <strong>biztonsági sebezhetőségeit</strong> — jogosulatlan hozzáférés, adatszivárgás, injekciós támadások — mielőtt egy valódi támadó megtenné.</p>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#34D399">Mikor?</p>
+      <p class="card-text">A fejlesztés <strong>egész folyamán</strong> — nem csak az élesítés előtt. Különösen fontos bejelentkezési rendszer, adatkezelés, vagy fizetési modul hozzáadásakor.</p>
+      <div class="tag-row">
+        <span class="tag" style="color:#34D399;border-color:rgba(52,211,153,0.25)">Auth fejlesztésekor</span>
+        <span class="tag" style="color:#34D399;border-color:rgba(52,211,153,0.25)">Élesítés előtt</span>
+        <span class="tag" style="color:#34D399;border-color:rgba(52,211,153,0.25)">Rendszeresen</span>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card-label" style="color:#34D399">Miért?</p>
+      <p class="card-text">A DTT <strong>diákok személyes adatait</strong> kezeli. Egy szivárgás vagy jogosulatlan hozzáférés nemcsak jogi kockázat, hanem a felhasználók bizalmának elvesztése is.</p>
+    </div>
+    <div class="card card-wide">
+      <p class="card-label" style="color:#34D399">Hogyan? – DTT kontextusban</p>
+      <p class="card-text">Teszteljük az <strong>SQL injection</strong>-t (pl. bejelentkezési mezőknél), <strong>XSS</strong>-t (szkript injektálás), a <strong>CSRF</strong>-védelmet és az <strong>autentikációs tokenek</strong> biztonságát. Ellenőrizzük, hogy csak bejelentkezett felhasználók érhetik el a tananyagot, és a jelszavak <strong>hashelve</strong> tárolódnak.</p>
+      <div class="tool-list">
+        <span class="tool-chip">OWASP ZAP</span>
+        <span class="tool-chip">Burp Suite</span>
+        <span class="tool-chip">npm audit</span>
+        <span class="tool-chip">Snyk</span>
+      </div>
+    </div>
+  </div>
+  <div class="progress-strip" id="ps-7"></div>
+</div>
+
+<!-- NAV ARROWS (only on content slides) -->
+<div class="nav-arrows" id="nav-arrows" style="display:none">
+  <button class="nav-arr" onclick="prevSlide()" title="Előző">‹</button>
+  <button class="nav-arr" onclick="nextSlide()" title="Következő">›</button>
+</div>
 
 <script>
-  function goTo(n) {
-    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-    document.getElementById('slide-' + n).classList.add('active');
+const TOTAL = 7;
+const COLORS = ['','#6EE7C7','#A78BFA','#F472B6','#FBB84B','#60A5FA','#F87171','#34D399'];
+let current = 0;
+
+function buildProgress(n) {
+  const el = document.getElementById('ps-' + n);
+  if (!el) return;
+  el.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const seg = document.createElement('div');
+    seg.className = 'ps-seg';
+    seg.style.background = i <= n ? COLORS[n] : 'rgba(255,255,255,0.07)';
+    el.appendChild(seg);
   }
+}
+
+for (let i = 1; i <= TOTAL; i++) buildProgress(i);
+
+function goTo(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.getElementById('slide-' + n).classList.add('active');
+  document.getElementById('nav-arrows').style.display = n === 0 ? 'none' : 'flex';
+  current = n;
+}
+
+function nextSlide() {
+  const next = current >= TOTAL ? 0 : current + 1;
+  goTo(next);
+}
+
+function prevSlide() {
+  const prev = current <= 1 ? 0 : current - 1;
+  goTo(prev);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  if (e.key === 'Escape' || e.key === 'Home') goTo(0);
+});
 </script>
 </body>
 </html>
